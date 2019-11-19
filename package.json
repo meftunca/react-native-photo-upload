@@ -11,17 +11,17 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "prop-types": "*",
-    "react-native-fs": "*",
-    "@react-native-community/imagepicker": "*",
-    "react-native-image-resizer": "^*"
+    "prop-types": "latest",
+    "react-native-fs": "latest",
+    "@react-native-community/imagepicker": "latest",
+    "react-native-image-resizer": "latest"
   },
   "devDependencies": {
     "standard": "^10.0.2"
   },
   "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
+    "react": "latest",
+    "react-native": "latest"
   },
   "keywords": [
     "photo",
