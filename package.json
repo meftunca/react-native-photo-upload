@@ -10,15 +10,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  
-  "devDependencies": {
-    "standard": "^10.0.2"
-  },
+
   "peerDependencies": {
     "prop-types": "latest",
     "react-native-fs": "latest",
-    "react-native-image-picker": "^1.1.0",
-    "react-native-image-resizer": "^1.1.0",
+    "react-native-image-picker": "latest",
+    "react-native-image-resizer": "latest",
     "react": "latest",
     "react-native": "latest"
   },
