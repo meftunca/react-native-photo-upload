@@ -87,7 +87,6 @@ export default class PhotoUpload extends React.Component {
         //When taking images with the front camera (selfie), the rotation is 270.
         rotation = -90 
       }
-      let outputPath =   RNFS.MainBundlePath + '/images';
       // resize image
       const resizedImageUri = await ImageResizer.createResizedImage(
         `data:image/jpeg;base64,${response.data}`,
@@ -96,19 +95,8 @@ export default class PhotoUpload extends React.Component {
         format,
         quality,
         rotation,
-        outputPath
       )
-/**
-    ImageResizer.createResizedImage(imageUri, newWidth, newHeight, compressFormat, quality, rotation, outputPath).then((response) => {
-      // response.uri is the URI of the new image that can now be displayed, uploaded...
-      // response.path is the path of the new image
-      // response.name is the name of the new image with the extension
-      // response.size is the size of the new image
-    }).catch((err) => {
-      // Oops, something went wrong. Check that the filename is correct and
-      // inspect err to get more details.
-    });
-*/
+
       if (this.props.onResizedImageUri) this.props.onResizedImageUri(resizedImageUri)
 
       const filePath = Platform.OS === 'android' && resizedImageUri.uri.replace
