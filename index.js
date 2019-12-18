@@ -34,7 +34,7 @@ export default class PhotoUpload extends React.Component {
     maxHeight: this.props.height || 600,
     maxWidth: this.props.width || 600,
     format: this.props.format || 'JPEG',
-    quality: this.props.quality || 100,
+    quality: this.props.quality || 80,
     buttonDisabled: false
   }
 
@@ -59,7 +59,6 @@ export default class PhotoUpload extends React.Component {
       const {originalRotation} = response
       
 
-      if (this.props.onResponse) this.props.onResponse(response)
 
       if (response.didCancel) {
         console.log('User cancelled image picker')
@@ -74,6 +73,7 @@ export default class PhotoUpload extends React.Component {
         if (this.props.onTapCustomButton) this.props.onTapCustomButton(response.customButton)
         return
       }
+      if (this.props.onResponse) this.props.onResponse(response)
 
       let { maxHeight, maxWidth, quality, format } = this.state
       
@@ -87,6 +87,7 @@ export default class PhotoUpload extends React.Component {
         //When taking images with the front camera (selfie), the rotation is 270.
         rotation = -90 
       }
+      let outputPath =   RNFS.MainBundlePath + '/images';
       // resize image
       const resizedImageUri = await ImageResizer.createResizedImage(
         `data:image/jpeg;base64,${response.data}`,
@@ -94,9 +95,20 @@ export default class PhotoUpload extends React.Component {
         maxWidth,
         format,
         quality,
-        rotation
+        rotation,
+        outputPath
       )
-
+/**
+    ImageResizer.createResizedImage(imageUri, newWidth, newHeight, compressFormat, quality, rotation, outputPath).then((response) => {
+      // response.uri is the URI of the new image that can now be displayed, uploaded...
+      // response.path is the path of the new image
+      // response.name is the name of the new image with the extension
+      // response.size is the size of the new image
+    }).catch((err) => {
+      // Oops, something went wrong. Check that the filename is correct and
+      // inspect err to get more details.
+    });
+*/
       if (this.props.onResizedImageUri) this.props.onResizedImageUri(resizedImageUri)
 
       const filePath = Platform.OS === 'android' && resizedImageUri.uri.replace
